@@ -11,3 +11,16 @@
 ```shell
     dpkg -L raspberrypi-kernel-headers | egrep -m1 "/lib/modules/[^-]+/build" | awk -F'/' '{ print $4; }'
 ```
+
+# Varible set/non-zero/default
+
+```shell
+    # When VAR set return set
+    ${VAR+set}
+    # When VAR non-set return NONESET
+    ${VAR-NONESET}
+    # When VAR has a non-zero length return ${VAR}, else return DEF
+    ${VAR:-DEF}
+    # When VAR has a non-zero length return ALTER, else return ""
+    ${VAR:+ALTER}
+```

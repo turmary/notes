@@ -10,4 +10,6 @@
 
 *	只要定义了 `LOCALVERSION`, 则就不会追加 "+" 号了
 
+*	去掉git版本号也可以使用`echo "" > .scmversion`
+
 [reference](https://github.com/gatieme/LDD-LinuxDeviceDrivers/tree/master/study/problem/build/local_version)
