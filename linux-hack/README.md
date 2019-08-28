@@ -13,3 +13,27 @@
 *	去掉git版本号也可以使用`echo "" > .scmversion`
 
 [reference](https://github.com/gatieme/LDD-LinuxDeviceDrivers/tree/master/study/problem/build/local_version)
+
+<br>
+
+# Log level
+
+|name | usage |
+|--------|-------|
+|console_loglevel|优先级高于(数值低于)该值的消息将被打印至控制台|
+|default_message_loglevel|使用该优先级来打印未指定优先级的消息|
+|minimum_console_loglevel|console_loglevel可被设置的最小值(最高优先级)|
+|default_console_loglevel|N/A,未使用|
+
+------
+
+**Changed in cmdline**
+  ```
+  debug|quiet|loglevel=5
+  ```
+
+**Changed in printk.c**
+  ```
+  #undef CONSOLE_LOGLEVEL_DEFAULT
+  #define CONSOLE_LOGLEVEL_DEFAULT 8
+  ```
