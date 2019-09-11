@@ -40,3 +40,13 @@
     # Count files hidden exclude hidden directory
     find . \( -regex ".*/\..*" -prune \) -type f -printf "%-6s %p\n" | wc -l
 ```
+
+# Get uncontinuous icmp_seq numbers
+
+```shell
+    logfile=ping-20190911.log
+    max_nr=$(wc -l $logfile | awk '{ print $1; }'); (( max_nr -- ))
+    nr_list=$(tail -n $(( max_nr )) $logfile | sed -re 's/^[0-9]+ bytes from [^:]+: icmp_seq=([0-9]+) .*$/\1/g')
+    uc_nr=$(diff <(seq 1 $max_nr | tr ' ' '\n') <(echo $nr_list | tr ' ' '\n') | awk '$0 ~ /^<.*/{ printf "%s ", $2; }')
+    echo $uc_nr
+```
