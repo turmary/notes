@@ -50,3 +50,12 @@
     uc_nr=$(diff <(seq 1 $max_nr | tr ' ' '\n') <(echo $nr_list | tr ' ' '\n') | awk '$0 ~ /^<.*/{ printf "%s ", $2; }')
     echo $uc_nr
 ```
+
+# Here document
+
+```shell
+    -EOF  - 选项用来标记 here document 的 limit string (<<-LimitString), 
+          可以抑制输出时前边的tab(不是空格). 这可以增加一个脚本的可读性.
+    "EOF"
+    \EOF  当"limit string"被引用或转义那么就禁用了参数替换.
+```
