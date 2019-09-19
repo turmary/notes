@@ -59,3 +59,23 @@
     "EOF"
     \EOF  当"limit string"被引用或转义那么就禁用了参数替换.
 ```
+
+# Netcat transfer file
+```shell
+    # transfer $file_to_send from/to $server_addr port $port
+    export file_to_send=u-boot-dtb.imx
+    export server_addr=192.168.4.100
+    export server_port=9000
+
+    # server to client
+    #   server
+    tar -c ${file_to_send} | nc -lN ${server_port}
+    #   client
+    nc ${server_addr} ${server_port} | tar -x
+
+    # client to server
+    #   server
+    nc -l ${server_port} | tar -x
+    #   client
+    tar -c ${file_to_send} | nc ${server_addr} ${server_port}
+```
