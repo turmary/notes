@@ -37,3 +37,17 @@
   #undef CONSOLE_LOGLEVEL_DEFAULT
   #define CONSOLE_LOGLEVEL_DEFAULT 8
   ```
+
+# Enable DEBUG
+  ```patch
+  --- a/drivers/mmc/core/Makefile
+  +++ b/drivers/mmc/core/Makefile
+  @@ -20,1 +20,2 @@ obj-$(CONFIG_MMC_TEST)         += mmc_test.o
+   obj-$(CONFIG_SDIO_UART)                += sdio_uart.o
+  +ccflags-y += -DDEBUG=1
+  ```
+
+**In C file begin**
+  ```
+  #define pr_fmt(fmt) KBUILD_MODNAME " %s():%d: " fmt, __func__, __LINE__
+  ```
