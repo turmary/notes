@@ -39,6 +39,11 @@
     find . ! \( -name ".*" \) -type f -print | wc -l
     # Count files hidden exclude hidden directory
     find . \( -regex ".*/\..*" -prune \) -type f -printf "%-6s %p\n" | wc -l
+
+    # Find MSYS2 changes
+    find / ! \( -regex "/proc.*" -prune -o -regex "/tmp.*" -prune \) -type f -newer /unins000.dat
+    # Find MSYS  changes
+    find / ! \( -regex "/proc.*" -prune -o -regex "/tmp.*" -prune \) -type f -newer /postinstall
 ```
 
 # Get uncontinuous icmp_seq numbers
