@@ -84,3 +84,9 @@
     #   client
     tar -c ${file_to_send} | nc ${server_addr} ${server_port}
 ```
+
+# Get git objects contents
+```shell
+    pushd .git/objects; objects=$(find ./ -type f | sed -e 's,\.,,g;s,/,,g' | sort); popd
+    for i in $objects; do echo -ne "=== $i \n";git cat-file -p $i; echo; done
+```
