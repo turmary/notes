@@ -90,3 +90,8 @@
     pushd .git/objects; objects=$(find ./ -type f | sed -e 's,\.,,g;s,/,,g' | sort); popd
     for i in $objects; do echo -ne "=== $i \n";git cat-file -p $i; echo; done
 ```
+
+# Revert all file mode changes in git repository
+```shell
+    git diff --summary | while read l; do a=($l); m=${a[@]:2:1}; f=${a[@]:5}; chmod ${m: -3} "$f"; done
+```
