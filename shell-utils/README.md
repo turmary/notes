@@ -95,3 +95,11 @@
 ```shell
     git diff --summary | while read l; do a=($l); m=${a[@]:2:1}; f=${a[@]:5}; chmod ${m: -3} "$f"; done
 ```
+
+# git daemon server
+```shell
+    cd /f/home/tary/git
+    git daemon --export-all --base-path=`pwd` `pwd`/am18x-lib/.git
+    git clone git://localhost/am18x-lib/.git
+```
+
