@@ -103,3 +103,8 @@
     git clone git://localhost/am18x-lib/.git
 ```
 
+# Windows user directory links
+```shell
+    cd $(cygpath -u "$USERPROFILE")
+    find . -maxdepth 1 -type l -exec sh -c 'LLL=$(readlink "{}"); printf "%-20s\t\"%s\"\n" "\"{}\"" "$LLL";' \; | sort -k 2
+```
