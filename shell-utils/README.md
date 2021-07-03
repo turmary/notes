@@ -108,3 +108,34 @@
     cd $(cygpath -u "$USERPROFILE")
     find . -maxdepth 1 -type l -exec sh -c 'LLL=$(readlink "{}"); printf "%-20s\t\"%s\"\n" "\"{}\"" "$LLL";' \; | sort -k 2
 ```
+
+# Copy partition table (MBR)
+```shell
+    sfdisk -uS -d /dev/sda | sfdisk -uS /dev/sdb
+```
+
+# Operate .cpio(.gz)
+```shell
+    find | cpio -H newc -o > ../initrd.cpio
+    find | cpio -H newc -o | gzip -9 > ../initrd.cpio.gz
+
+    cpio -idmv < ../initrd.cpio
+    zcat ../initrd.cpio.gz | cpio -idmv
+```
+
+# Change file in initramfs.cpio.gz.uboot
+```shell
+    dd if=initramfs.cpio.gz.uboot of=initramfs.cpio.gz bs=16 skip=4
+
+    mkdir rootfs;cd rootfs
+    zcat ../initramfs.cpio.gz | cpio --no-absolute-filenames -i
+    cd ../
+
+    # Make your changes in rootfs/
+
+    cd rootfs
+    find ./ -print | cpio -H newc -o | gzip -9 > ../initramfs.cpio.gz
+    cd ../
+
+    mkimage -A ARM -O Linux -T ramdisk -C gzip -a 0 -d initramfs.cpio.gz -n "ramdisk title" initramfs.cpio.gz.uboot
+```
