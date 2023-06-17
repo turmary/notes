@@ -59,10 +59,10 @@
 # Here document
 
 ```shell
-    -EOF  - ѡ��������� here document �� limit string (<<-LimitString), 
-          �����������ʱǰ�ߵ�tab(���ǿո�). ���������һ���ű��Ŀɶ���.
+    -EOF  - 选项用来标记 here document 的 limit string (<<-LimitString), 
+          可以抑制输出时前边的tab(不是空格). 这可以增加一个脚本的可读性.
     "EOF"
-    \EOF  ��"limit string"�����û�ת����ô�ͽ����˲����滻.
+    \EOF  当"limit string"被引用或转义那么就禁用了参数替换.
 ```
 
 # Netcat transfer file
@@ -112,6 +112,15 @@
 # Copy partition table (MBR)
 ```shell
     sfdisk -uS -d /dev/sda | sfdisk -uS /dev/sdb
+```
+
+# Change ext2/3/4 partition size
+```shell
+# 扩大或缩小Linux分区
+    1. 如果扩大分区，用fdisk修改分区表中的分区大小
+    2. 运行resize2fs，如果缩小分区，需要指定新的分区大小参数
+    3. 如果缩小分区，用fdisk修改分区表中的分区大小，比实际内容大
+    4. 使用e2fsck检查分区
 ```
 
 # Operate .cpio(.gz)
